@@ -1,0 +1,193 @@
+<div class="content">
+  <div class="ui-g">
+    <div class="ui-g-12 card-title">
+      <p>小日曆</p>
+    </div>
+    <div class="card-content">
+      <div class="ui-g">
+        <div class="ui-lg-4 ui-md-12">
+          <span>日期：</span>
+          <p-calendar [(ngModel)]="valueDate" showButtonBar="true" [monthNavigator]="true" [yearNavigator]="true"
+            yearRange="1900:2030" [showIcon]="true" [locale]="tw" dateFormat="yy/mm/dd" (onSelect)="showDate()"
+            [defaultDate]="valueDate"></p-calendar>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="content">
+    <div class="ui-g">
+      <div class="ui-g-12 card-title">
+        <p>DateJs移植測試=>Date Service</p>
+      </div>
+      <div class="card-content">
+        <div class="ui-g">
+          <div class="ui-lg-4 ui-md-12">
+            <button pButton (click)="testDateService()" [label]="'案例測試'"></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<div class="content">
+  <div class="ui-g">
+    <div class="ui-g-12 card-title">
+      <p>AutoComplete</p>
+    </div>
+    <div class="card-content">
+      <div class="ui-g">
+        <div class="ui-lg-4 ui-md-12">
+          <app-auto-complete (complete)='getManu($event)' [data]="data" [key]="'manufacturer'"></app-auto-complete>
+          <span>選擇的值</span>
+          <span [innerHtml]='value'></span>
+        </div>
+
+        <div class="ui-lg-4 ui-md-12">
+          <app-auto-complete (complete)='getManu2($event)' [data]="data2" [key]="'manufacturer'"
+            [placeholder]="'hplaceholder'"></app-auto-complete>
+          <span>選擇的值</span>
+          <span [innerHtml]='value2'></span>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+<div class="content">
+  <div class="ui-g">
+    <div class="ui-g-12 card-title">
+      <p>按鈕權限</p>
+    </div>
+    <div class="card-content">
+      <div class="ui-g">
+        <button pButton (click)="getApi()" appFeatureHidden id="buttoncase1" [label]="'案例一'"></button>
+        <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+        <button pButton (click)="getApi2()" appFeatureAuth id="buttoncase2" [label]="'案例二'"></button>
+        <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;案例三看不到</label>
+        <button pButton (click)="getApi2()" appFeatureHidden id="buttoncase3" [label]="'案例三'"></button>
+
+        <button pButton (click)="getApi4()"  id="buttoncase4" [label]="'案例四'"></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="content">
+  <div class="ui-g">
+    <div class="ui-g-12 card-title">
+      <p>PopupWindow</p>
+    </div>
+    <div class="card-content">
+      <div class="ui-g">
+        <p-splitButton label="popupWin" icon="pi pi-file" (onClick)="popup()" [model]="buttonItems2"
+          styleClass="ui-button-warning"></p-splitButton>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="content">
+  <div class="ui-g">
+    <div class="ui-g-12 card-title">
+      <p>檔案下載(以EXCEL檔案為例)</p>
+    </div>
+    <div class="card-content">
+      <div class="ui-g">
+        <button pButton (click)="downloadFile()" [label]="'downloadFile'"></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="content">
+  <div class="ui-g">
+    <div class="ui-g-12 card-title">
+      <p>PDF顯示與下載</p>
+    </div>
+    <div class="card-content">
+      <div class="ui-g">
+        <button pButton (click)="getPdf()" [label]="'打開PDF'"></button>
+        <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+        <button pButton (click)="downloadPdf()" [label]="'下載PDF'"></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="content">
+  <div class="card-title">
+    <p>File Upload Demo</p>
+  </div>
+  <div class="card-content" [formGroup]="form">
+    <div class="ui-g  ui-fluid">
+      <div class="ui-g-6 ui-md-12">
+        <p-fileUpload name="files" customUpload="true" (onSelect)="setFiles($event)" (onClear)="clear()"
+          (onRemove)="setFiles($event)" previewWidth="0" maxFileSize="1000000" [multiple]="true"
+          [showUploadButton]="true" [chooseLabel]="'features.upload.chooseLabel' | translate"
+          [cancelLabel]="'features.upload.clearLabel' | translate"
+          [uploadLabel]="'features.upload.uploadLabel' | translate">
+
+        </p-fileUpload>
+      </div>
+      <div class="ui-g-12 ui-md-12">
+        <div class="ui-lg-2 ui-md-12">Upload Name</div>
+        <div class="ui-lg-10 ui-md-12">
+          <input pInputText type="text" formControlName="uploadName" />
+        </div>
+      </div>
+      <div class="ui-g-6 ui-md-8 ui-md-offset-2">
+        <button pButton [disabled]="form.invalid" (click)="submit()" [label]="'Submit'"></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="content">
+  <div class="card-title">
+    <p>Tabs</p>
+  </div>
+  <div class="card-content">
+    <div class="ui-g  ui-fluid">
+      <p-tabView (onChange)="onTabChange($event)">
+        <p-tabPanel header="Why?" tooltip="Tab1">
+          為什麼選GIT當成版本控制工具？ Git 很快 Git 很小 暫存區域 它是分散式的 便宜的本地分支 所有內容都在本地端 適用任何工作流程
+        </p-tabPanel>
+        <p-tabPanel header="What?" [selected]="true" tooltip="Tab2">
+          GIT是分散式版本控制系統 這裡有一個很重要的觀念是說：「GIT與目前公司用的IBM Rational ClearCase(簡稱：CC)是完全不同的！請不要將CC的觀念套用在GIT上。」 1.IBM Rational
+          ClearCase是集中版本控制系統
+          2.GIT是分散版本控制系統 3.GIT是分散式版本控制系統，客戶端不只是取出最後一版的檔案，而是完整複製整個儲存庫。即使是整個系統賴以運作的電腦損毀，皆可將任何一個客戶端先前複製的資料還原到伺服器。
+          每一次的取出動作實際上就是「完整備份」整個儲存庫。
+        </p-tabPanel>
+        <p-tabPanel header="How?" tooltip="Tab3">
+          <app-demoa00700></app-demoa00700>
+        </p-tabPanel>
+        <p-tabPanel header="哲民洗澡精華" [disabled]="true" tooltip="Tab4">
+          After a break of more than 15 years, director Francis Ford Coppola and writer Mario Puzo returned to the well
+          for this third
+          and final story of the fictional Corleone crime family. Two decades have passed, and crime kingpin Michael
+          Corleone,
+          now divorced from his wife Kay has nearly succeeded in keeping his promise that his family would one day be
+          completely
+          legitimate.
+        </p-tabPanel>
+      </p-tabView>
+    </div>
+  </div>
+
+  <p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+  <p-dialog [(visible)]="dialogDisplay" [modal]="true" [responsive]="true" [style]="{width: '800px', minWidth: '200px'}"
+    [minY]="70" [baseZIndex]="10000" [draggable]="true" [resizable]="true">
+    <p-header>
+      標題
+    </p-header>
+    <p>
+      <button pButton type="button" label="Hello" class="outline" (click)="changeDialogText()"></button>
+      {{dialogText}}
+    </p>
+    <p-footer>
+      我還可以放很多東西喔
+      <button type="button" pButton icon="pi pi-check" (click)="dialogDisplay=false" label="Yes"></button>
+      <button type="button" pButton icon="pi pi-close" (click)="dialogDisplay=false" label="No"
+        class="ui-button-secondary"></button>
+    </p-footer>
+  </p-dialog>

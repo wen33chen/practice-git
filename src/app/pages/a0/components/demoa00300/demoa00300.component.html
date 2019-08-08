@@ -1,0 +1,195 @@
+<div class="ui-g-12">
+  <p-table #p2 [columns]="cols" [value]="tableData1" [paginator]="true" [rows]="10" editMode="row" dataKey="id"
+    [rowsPerPageOptions]="[10,20,30]" [(selection)]="checkboxSelected">
+    <!--selectionMode="single" [(selection)]="selectedCar" (onRowSelect)="onRowSelect($event)"-->
+    <ng-template pTemplate="caption">
+      List of Cars
+      <div class="ui-helper-clearfix">
+        <button type="button" pButton icon="fa fa-camera-retro fa-2x" iconPos="left" label="All Data"
+          (click)="p2.exportCSV()" style="float:left"></button>
+        <button type="button" pButton icon="fa fa-file" iconPos="left" label="Selection Only"
+          (click)="p2.exportCSV({selectionOnly:true})" style="float:right"></button>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+        <th style="width: 3em">
+          <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+        </th>
+        <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+          {{col.header}}
+          <p-sortIcon [field]="col.field"></p-sortIcon>
+        </th>
+        <th style="width:8em"></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-columns="columns" let-editing="editing" let-ri="rowIndex">
+      <tr [pSelectableRow]="rowData" [pEditableRow]="rowData">
+        <td>
+          <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+        </td>
+        <td>
+          {{rowData.id}}
+        </td>
+        <td>
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input pInputText type="text" [(ngModel)]="rowData.customerId" required>
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{rowData.customerId}}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td>
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input pInputText type="text" [(ngModel)]="rowData.birthday" required>
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{rowData.birthday | date}}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td>
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input pInputText type="text" [(ngModel)]="rowData.name" required>
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{rowData.name}}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td>
+          <p-cellEditor>
+            <ng-template pTemplate="input">
+              <input pInputText type="text" [(ngModel)]="rowData.sex" required>
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{rowData.sex}}
+            </ng-template>
+          </p-cellEditor>
+        </td>
+        <td style="text-align:center">
+          <button *ngIf="!editing" pButton type="button" pInitEditableRow icon="pi pi-pencil" class="ui-button-info"
+            (click)="onRowEditInit(rowData)"></button>
+          <button *ngIf="editing" pButton type="button" pSaveEditableRow icon="pi pi-check" class="ui-button-success"
+            style="margin-right: .5em" (click)="onRowEditSave(rowData)"></button>
+          <button *ngIf="editing" pButton type="button" pCancelEditableRow icon="pi pi-times" class="ui-button-danger"
+            (click)="onRowEditCancel(rowData, ri)"></button>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="paginatorright" let-state>
+      <div style="padding-top: 0.5em;padding-left: 2em;padding-right: 0.5em;">
+        {{state.totalRecords}} records
+      </div>
+    </ng-template>
+    <ng-template pTemplate="summary">
+      <ul>
+        <li *ngFor="let cust of checkboxSelected" style="text-align: left">
+          {{cust.name+ ' - ' + cust.id + ' - ' + cust.birthday + ' - ' + cust.sex}}
+        </li>
+      </ul>
+      <div style="text-align:left">
+        <button type="button" pButton icon="fa fa-plus" (click)="showDialogToAdd()" label="Add"></button>
+      </div>
+    </ng-template>
+  </p-table>
+  <p-table #p1 [value]="tableData2" [paginator]="true" [rows]="10" [(selection)]="radioSelected"
+    [columns]="selectedColumns">
+    <ng-template pTemplate="caption">
+      顧客列表2
+      <div style="text-align:left">
+        <p-multiSelect [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header"
+          selectedItemsLabel="{0} columns selected" [style]="{minWidth: '200px'}" defaultLabel="Choose Columns">
+        </p-multiSelect>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+        <th style="width: 3em"></th>
+        <th style="width: 3em"></th>
+        <th *ngFor="let col of columns">
+          {{col.header}}
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-columns="columns" let-index="rowIndex">
+      <tr [pSelectableRow]="rowData" [pReorderableRow]="index">
+        <td>
+          <i class="fa fa-bars" pReorderableRowHandle></i>
+        </td>
+        <td>
+          <p-tableRadioButton [value]="rowData" (click)="radioClick()"></p-tableRadioButton>
+        </td>
+        <td *ngFor="let col of columns">
+          {{rowData[col.field]}}
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="paginatorright" let-state>
+      <div style="padding-top: 0.5em;padding-left: 2em;padding-right: 0.5em;">
+        {{state.totalRecords}} records
+      </div>
+    </ng-template>
+    <ng-template pTemplate="summary">
+      <div style="text-align:left">
+        <button type="button" pButton icon="fa fa-plus" (click)="addRow()" label="Add"></button>
+      </div>
+    </ng-template>
+  </p-table>
+</div>
+
+<p-dialog header="Cust Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true"
+  [style]="{width: '300px'}">
+  <div class="ui-g ui-fluid" *ngIf="cust">
+    <div class="ui-g-12">
+      <div class="ui-g-4">
+        <label for="id">Id</label>
+      </div>
+      <div class="ui-g-8">
+        <input pInputText id="id" [(ngModel)]="cust.id" />
+      </div>
+    </div>
+    <div class="ui-g-12">
+      <div class="ui-g-4">
+        <label for="customerid">Customerid</label>
+      </div>
+      <div class="ui-g-8">
+        <input pInputText id="customerId" [(ngModel)]="cust.customerId" />
+      </div>
+    </div>
+    <div class="ui-g-12">
+      <div class="ui-g-4">
+        <label for="birthday">Birthday</label>
+      </div>
+      <div class="ui-g-8">
+        <input pInputText id="birthday" [(ngModel)]="cust.birthday" />
+      </div>
+    </div>
+    <div class="ui-g-12">
+      <div class="ui-g-4">
+        <label for="name">Name</label>
+      </div>
+      <div class="ui-g-8">
+        <input pInputText id="name" [(ngModel)]="cust.name" />
+      </div>
+    </div>
+    <div class="ui-g-12">
+      <div class="ui-g-4">
+        <label for="sex">Sex</label>
+      </div>
+      <div class="ui-g-8">
+        <input pInputText id="sex" [(ngModel)]="cust.sex" />
+      </div>
+    </div>
+  </div>
+  <p-footer>
+    <div class="ui-dialog-buttonpane ui-helper-clearfix">
+      <!-- <button type="button" pButton icon="fa fa-close" (click)="delete()" label="Delete"></button> -->
+      <button type="button" pButton icon="fa fa-check" (click)="save()" label="Save"></button>
+    </div>
+  </p-footer>
+</p-dialog>

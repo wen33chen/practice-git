@@ -1,0 +1,50 @@
+<!-- <div class="top-bar">
+  <p-menubar [model]="topNavItems$ | async">
+    <a [routerLink]="['/']">
+      <img src="../assets/img/logo.png" width="200px" height="auto"
+    /></a>
+  </p-menubar>
+</div> -->
+<header class="header">
+
+  <nav id="site-menu">
+    <div class="container">
+      <ul>
+        <li>{{topNavItems.DeptName}}</li>
+        <li>
+          <span>{{topNavItems.EmpNo}}</span>
+          <span class="ml-5">{{topNavItems.EmpName}}</span>
+        </li>
+        <li>{{topNavItems.DeptCode}}</li>
+        <li *ngIf="isLocal">
+          <select [(ngModel)]='userSelect' (change)="switchUserChange($event.target.value)">
+              <option *ngFor="let userMap of switchUser | keyvalue" value="{{userMap.value.empId}}">{{userMap.value.empId}} - {{userMap.value.empName}}</option>
+            </select>
+        </li>
+        <li>
+          <select id="eBAF_displayLanguage">
+                <option *ngFor="let item of langMappingSpring">{{item}}</option>
+            </select>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <nav id="info-menu">
+    <h1 class="logo">
+      <a routerLink="/" title="國泰世華銀行">
+        <figure>
+          <img src="../../../../assets/img/cathaybk/common/ui/logo.gif">
+        </figure>
+      </a>
+    </h1>
+
+    <div id="env_info">
+      <span class="system_info">XX系統</span><span>測試環境</span>
+    </div>
+
+    <div id="actions">
+      <a href="javascript:;" id="a_eBAF_logout" (click)='logout()'>登出/Logout</a>
+    </div>
+  </nav>
+</header>

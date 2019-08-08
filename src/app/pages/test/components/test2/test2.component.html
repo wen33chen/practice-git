@@ -1,0 +1,60 @@
+<div class="content">
+  <div class="ui-g">
+    <div class="ui-g-12 card-title">
+      <p>{{ 'features.roles.name' | translate }}</p>
+    </div>
+    <div class="card-content">
+      <div class="ui-g-4">
+        <label>角色名稱:</label>
+        <input
+          type="text"
+          pInputText
+          placeholder="{{ 'features.roles.roleName' | translate }}"
+          [(ngModel)]="keyword"
+        />
+      </div>
+      <div class="ui-g-4" style="display:flex;align-items:center;">
+        <label>排序:</label>
+        <p-multiSelect
+          #multiselect
+          [options]="orderColumn"
+          [showToggleAll]="false"
+          [optionLabel]="'label'"
+          [(ngModel)]="selectedOrderColumn"
+          [panelStyle]="{ minWidth: '12em' }"
+          (onChange)="multiSelectClick($event)"
+        >
+          <ng-template let-value pTemplate="selectedItems">
+            <div
+              *ngFor="let val of value"
+              class="ui-multiselected-item-token ui-corner-all"
+            >
+              <span>{{ val.label }}</span>
+            </div>
+            <span
+              *ngIf="!value || value.length === 0"
+              class="ui-multiselected-empty-token ui-corner-all"
+              >請選擇</span
+            >
+          </ng-template>
+          <ng-template let-item pTemplate="item">
+            <div style="font-size:14px;float:right;margin-top:4px">
+              {{ item.label }}
+            </div>
+          </ng-template>
+        </p-multiSelect>
+      </div>
+      <div class="ui-g-4">
+        <button
+          pButton
+          type="button"
+          label="{{ 'general.query' | translate }}"
+          class="outline"
+          (click)="query()"
+          appFeatureAuth featureCode="12345"
+        ></button>
+      </div>
+
+    </div>
+  </div>
+</div>

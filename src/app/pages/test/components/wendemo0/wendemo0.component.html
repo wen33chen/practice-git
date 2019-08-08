@@ -1,0 +1,149 @@
+<div class="content">
+
+    <br class="ui-g-12">
+    <p-splitButton label="載入資料" icon="pi pi-file" (onClick)="getcars()" [model]="buttonItems"></p-splitButton>
+    <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+    <p-splitButton label="popupWin" icon="pi pi-file" (onClick)="popup()" [model]="buttonItems2" styleClass="ui-button-warning"></p-splitButton>
+    <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+    <button pButton type="button" label="小日曆與table編輯" class="outline" (click)="toT3()"></button>
+    <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+    <button pButton type="button" label="表單Radio/CheckBox與排序" class="outline" (click)="toT4()"></button>
+
+    <br><br>
+    <input [(ngModel)]=data />
+    <p-table #dt [value]="(tableData)" [columns]="cols" [paginator]="true" [rows]="(rowsTable)"
+      (sortFunction)="customSort($event)">
+      <ng-template pTemplate="caption">
+        <div style="text-align: right">
+          <button type="button" pButton icon="pi pi-file" iconPos="left" label="All Data" (click)="dt.exportCSV()"
+            style="float:left"></button>
+          <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+          <input type="text" pInputText size="50" placeholder="Global Filter"
+            (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+        </div>
+      </ng-template>
+      <ng-template pTemplate="header">
+        <tr>
+          <th rowspan="2">
+          </th>
+          <th rowspan="2">{{tmp}}</th>
+          <th rowspan="2">Type</th>
+          <th colspan="2">Price</th>
+        </tr>
+        <tr>
+          <th>Min Price</th>
+          <th pSortableColumn="price">Price <p-sortIcon field="price"></p-sortIcon>
+          </th>
+        </tr>
+        <tr>
+          <th></th>
+          <th>
+            <p-multiSelect [style]="{'width':'100%','margin-top':'8px'}" [options]="brands" defaultLabel="All Brand"
+              (onChange)="dt.filter($event.value, 'manufacturer', 'in')"></p-multiSelect>
+          </th>
+          <th></th>
+          <th></th>
+          <th>
+            <div>
+              Price > {{priceFilter | currency}}
+              <i class="fa fa-close" (click)="priceFilter=null;dt.filter(null, 'price', col.filterMatchMode)"
+                style="cursor:pointer" *ngIf="priceFilter"></i>
+              <p-slider [style]="{'width':'100%','margin-top':'8px'}" [min]="0" [max]="999999"
+                (onChange)="onPriceChange($event, dt)" [(ngModel)]="priceFilter"></p-slider>
+            </div>
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-expanded="expanded" let-rowData let-columns="columns">
+        <tr>
+          <td>
+            <button pButton icon="pi pi-eye" (click)="selectCarWithButton(rowData)"></button>
+          </td>
+          <!-- <td *ngFor="let col of columns">
+
+              {{rowData[col.field]}}
+            </td> -->
+          <td>{{rowData.manufacturer}}</td>
+          <td>{{rowData.type}}</td>
+          <td align="right">{{rowData.minPrice | currency}}</td>
+          <td align="right">{{rowData.price | currency}}</td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="paginatorright" let-state>
+          <div style="text-align: center;width:100%">
+              {{state.totalRecords}} records
+          </div><br>
+          <!-- <div>
+            目前在第{{state.page+1}}頁
+          </div> -->
+      </ng-template>
+      <ng-template pTemplate="footer">
+        <tr>
+          <td colspan="3">Totals</td>
+          <td align="right">{{506202 | currency}}</td>
+          <td align="right">{{531020 | currency}}</td>
+        </tr>
+      </ng-template>
+    </p-table>
+    <h3>Table 2</h3>
+    <p-table [value]="(custTable)" dataKey="id" editMode="row" [reorderableColumns]="true" selectionMode="single"
+      [(selection)]="selectedCust1" [columns]="selectedColumns">
+      <ng-template pTemplate="caption">
+        <div style="text-align:left">
+          <p-multiSelect [options]="colsCusts" [(ngModel)]="selectedColumns" optionLabel="header"
+            selectedItemsLabel="{0} columns selected" [style]="{minWidth: '200px'}" defaultLabel="Choose Columns">
+          </p-multiSelect>
+        </div>
+      </ng-template>
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <th></th>
+          <th *ngFor="let col of columns" pReorderableColumn [pSortableColumn]="col.field">
+            {{col.header}}
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowData let-editing="editing" let-index="rowIndex" let-columns="columns">
+        <tr [pReorderableRow]="index" [pSelectableRow]="rowData">
+          <td>
+            <i class="fa fa-bars" pReorderableRowHandle></i>
+          </td>
+          <td *ngFor="let col of columns">
+            {{rowData[col.field]}}
+          </td>
+          <!-- <td>{{rowData.id}}</td>
+            <td>
+              {{rowData.customerId}}
+            </td>
+            <td>{{rowData.birthday}}</td>
+            <td>
+              {{rowData.name}}
+            </td>
+            <td>{{rowData.sex}}</td> -->
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="summary">
+        <div style="text-align: left">
+          Selected Customer:
+          {{selectedCust1 ? selectedCust1.id + ' - ' + selectedCust1.customerId + ' - ' + selectedCust1.birthday + ' - ' + selectedCust1.name: 'none'}}
+          <br><br>
+        </div>
+      </ng-template>
+    </p-table>
+    <p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+    <p-dialog [(visible)]="dialogDisplay" [modal]="true" [responsive]="true" [style]="{width: '800px', minWidth: '200px'}"
+      [minY]="70" [baseZIndex]="10000" [draggable]="true" [resizable]="true">
+      <p-header>
+        標題
+      </p-header>
+      <p>
+        <button pButton type="button" label="Hello" class="outline" (click)="changeDialogText()"></button>
+        {{dialogText}}</p>
+      <p-footer>
+        我還可以放很多東西喔
+        <button type="button" pButton icon="pi pi-check" (click)="dialogDisplay=false" label="Yes"></button>
+        <button type="button" pButton icon="pi pi-close" (click)="dialogDisplay=false" label="No"
+          class="ui-button-secondary"></button>
+      </p-footer>
+    </p-dialog>
+  </div>

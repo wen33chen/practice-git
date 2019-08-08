@@ -1,0 +1,9 @@
+<p-autoComplete [(ngModel)]="value" (onSelect)="captureId($event)" [suggestions]="dataTemp" (completeMethod)="searchCar($event)"
+  [size]="30" [minLength]="1" placeholder="{{placeholder}}" [dropdown]="true">
+
+
+  <ng-template let-brand pTemplate="selectedItem">
+    {{brand}}
+  </ng-template>
+
+</p-autoComplete>

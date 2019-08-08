@@ -1,0 +1,46 @@
+//調整外框
+::ng-deep .ui-fileupload-files.ng-star-inserted {
+  border: 1px solid #11a847;
+  width: 80%;
+  border-bottom-style:hidden;
+}
+//調整置中
+::ng-deep .ui-fileupload-content.ui-widget-content.ui-corner-bottom{
+  justify-content: center;
+  display: flex;
+}
+
+//下框線
+::ng-deep .ui-fileupload-row{
+  border-bottom-style: solid;
+  border-bottom-width: 0.5px;
+  border-bottom-color: #1d9250;
+  display: block
+}
+//檔名的div
+::ng-deep .ui-fileupload-row>div:nth-child(2) {
+  width: 50%;
+
+}
+//檔案大小的div
+::ng-deep .ui-fileupload-row>div:nth-child(3) {
+  width: 50%;
+  text-align:right;
+}
+
+
+
+
+//button的顏色
+::ng-deep body .ui-button {
+  border: 1px solid #25b964;
+  border-radius: 4px;
+  background: white;
+  color: #25b964;
+  &:enabled:hover {
+    border: 1px solid #25b964;
+    border-radius: 4px;
+    background: #25b964;
+    color: white;
+  }
+}

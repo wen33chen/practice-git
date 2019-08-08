@@ -1,0 +1,138 @@
+<div class="ui-g-12">
+  <p-table #p2 [columns]="cols" [value]="tableData1" selectionMode="single" [paginator]="true" [rows]="20"
+    [rowsPerPageOptions]="[20,50,100]" [(selection)]="selectedCust" (onRowSelect)="onRowSelect($event)"
+    [scrollable]="true" scrollHeight="400px" [frozenValue]="[{}]">
+    <ng-template pTemplate="caption">
+      List of Cars
+      <div class="ui-helper-clearfix">
+        <!-- <button type="button" pButton icon="fa fa-camera-retro fa-2x" iconPos="left" label="All Data" (click)="p2.exportCSV()" style="float:left"></button> -->
+        <!-- <button type="button" pButton icon="fa fa-file" iconPos="left" label="Selection Only" (click)="p2.exportCSV({selectionOnly:true})" ></button> -->
+        <button type="button" pButton icon="fa fa-plus" (click)="showDialogToAdd()" label="Add"
+          style="float:right"></button>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+        <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+          {{col.header}}
+          <p-sortIcon [field]="col.field"></p-sortIcon>
+        </th>
+        <th></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="frozenrows">
+      <!-- let-rowData let-columns="columns" -->
+      <tr>
+        <!-- <td *ngFor="let col of columns">
+              <b>{{rowData[col.field]}}</b>
+          </td> -->
+        <td>
+          <span class="ui-float-label">
+            <input id="input_id" type="text" [(ngModel)]="rowAddId" style="width:100%" pInputText>
+            <label for="input_id">Id</label>
+          </span>
+        </td>
+        <td>
+          <span class="ui-float-label">
+            <input id="input_customerid" type="text" [(ngModel)]="rowAddCustomerId" style="width:100%" pInputText>
+            <label for="input_customerid">Customerid</label>
+          </span>
+        </td>
+        <td>
+          <span class="ui-float-label">
+            <input id="input_birthday" type="text" [(ngModel)]="rowAddBirthday" style="width:100%" pInputText>
+            <label for="input_birthday">Birthday</label>
+          </span>
+        </td>
+        <td>
+          <span class="ui-float-label">
+            <input id="input_name" type="text" [(ngModel)]="rowAddName" style="width:100%" pInputText>
+            <label for="input_name">Name</label>
+          </span>
+        </td>
+        <td>
+          <span class="ui-float-label">
+            <input id="input_sex" type="text" [(ngModel)]="rowAddSex" style="width:100%" pInputText>
+            <label for="input_sex">Sex</label>
+          </span>
+        </td>
+        <td>
+          <button type="button" pButton icon="fa fa-plus" label="Add" (click)="rowAdd()"></button>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-columns="columns">
+      <tr [pSelectableRow]="rowData">
+        <td *ngFor="let col of columns">
+          {{rowData[col.field]}}
+        </td>
+        <td></td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="paginatorright" let-state>
+      <div style="padding-top: 0.5em;padding-left: 2em;padding-right: 0.5em;">
+        {{state.totalRecords}} records
+      </div>
+      <!-- <div>
+          目前在第{{state.page+1}}頁
+        </div> -->
+    </ng-template>
+    <!-- <ng-template pTemplate="summary">
+        <div style="text-align:left">
+           <button type="button" pButton icon="fa fa-plus" (click)="showDialogToAdd()" label="Add"></button>
+      </div>
+        </ng-template>-->
+  </p-table>
+</div>
+
+<p-dialog header="Cust Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true"
+  [style]="{width: '300px'}">
+  <div class="ui-g ui-fluid" *ngIf="cust">
+    <div class="ui-g-12">
+      <div class="ui-g-4">
+        <label for="id">Id</label>
+      </div>
+      <div class="ui-g-8">
+        <input pInputText id="id" [(ngModel)]="cust.id" />
+      </div>
+    </div>
+    <div class="ui-g-12">
+      <div class="ui-g-4">
+        <label for="customerid">Customerid</label>
+      </div>
+      <div class="ui-g-8">
+        <input pInputText id="customerId" [(ngModel)]="cust.customerId" />
+      </div>
+    </div>
+    <div class="ui-g-12">
+      <div class="ui-g-4">
+        <label for="birthday">Birthday</label>
+      </div>
+      <div class="ui-g-8">
+        <input pInputText id="birthday" [(ngModel)]="cust.birthday" />
+      </div>
+    </div>
+    <div class="ui-g-12">
+      <div class="ui-g-4">
+        <label for="name">Name</label>
+      </div>
+      <div class="ui-g-8">
+        <input pInputText id="name" [(ngModel)]="cust.name" />
+      </div>
+    </div>
+    <div class="ui-g-12">
+      <div class="ui-g-4">
+        <label for="sex">Sex</label>
+      </div>
+      <div class="ui-g-8">
+        <input pInputText id="sex" [(ngModel)]="cust.sex" />
+      </div>
+    </div>
+  </div>
+  <p-footer>
+    <div class="ui-dialog-buttonpane ui-helper-clearfix">
+      <button type="button" pButton icon="fa fa-times" (click)="delete()" label="Delete"></button>
+      <button type="button" pButton icon="fa fa-check" (click)="save()" label="Save"></button>
+    </div>
+  </p-footer>
+</p-dialog>

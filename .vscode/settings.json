@@ -1,0 +1,5 @@
+{
+  "tslint.autoFixOnSave": true,
+  "prettier.singleQuote": true,
+  "workbench.editor.enablePreview": false
+}

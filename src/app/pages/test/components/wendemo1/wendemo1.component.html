@@ -1,0 +1,99 @@
+<div class="content">
+  <div class="ui-g">
+    <div class="ui-g-12 card-title">
+      <p>測試輸入</p>
+    </div>
+    <div class="card-content">
+      <div class="ui-g">
+        <div class="ui-lg-4 ui-md-12">
+          <span>日期：</span>
+          <p-calendar [(ngModel)]="valueDate" showButtonBar="true" [monthNavigator]="true" [yearNavigator]="true"
+            yearRange="1900:2030" [showIcon]="true" [locale]="tw" dateFormat="yy/mm/dd" (onSelect)="showDate()"
+            [defaultDate]="valueDate"></p-calendar>
+          <br><br>
+          <input [(ngModel)]=data />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ui-g-12">
+    <p-table [columns]="cols" [value]="tableData" [paginator]="true" [rows]="15" editMode="row" dataKey="id" [rowsPerPageOptions]="[10,20,30]">
+      <!--selectionMode="single" [(selection)]="selectedCar" (onRowSelect)="onRowSelect($event)"-->
+      <ng-template pTemplate="caption">
+        List of Cars
+      </ng-template>
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+            {{col.header}}
+            <p-sortIcon [field]="col.field"></p-sortIcon>
+          </th>
+          <th style="width:8em"></th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowData let-columns="columns" let-editing="editing" let-ri="rowIndex">
+        <tr [pSelectableRow]="rowData" [pEditableRow]="rowData">
+          <!-- <td *ngFor="let col of columns">
+            {{rowData[col.field]}}
+          </td> -->
+          <td>
+            {{rowData.id}}
+          </td>
+          <td>
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                <input pInputText type="text" [(ngModel)]="rowData.customerId" required>
+              </ng-template>
+              <ng-template pTemplate="output">
+                {{rowData.customerId}}
+              </ng-template>
+            </p-cellEditor>
+          </td>
+          <td>
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                <input pInputText type="text" [(ngModel)]="rowData.birthday" required>
+              </ng-template>
+              <ng-template pTemplate="output">
+                {{rowData.birthday | date}}
+              </ng-template>
+            </p-cellEditor>
+          </td>
+          <td>
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                <input pInputText type="text" [(ngModel)]="rowData.name" required>
+              </ng-template>
+              <ng-template pTemplate="output">
+                {{rowData.name}}
+              </ng-template>
+            </p-cellEditor>
+          </td>
+          <td>
+            <p-cellEditor>
+              <ng-template pTemplate="input">
+                <input pInputText type="text" [(ngModel)]="rowData.sex" required>
+              </ng-template>
+              <ng-template pTemplate="output">
+                {{rowData.sex}}
+              </ng-template>
+            </p-cellEditor>
+          </td>
+          <td style="text-align:center">
+            <button *ngIf="!editing" pButton type="button" pInitEditableRow icon="pi pi-pencil" class="ui-button-info"
+              (click)="onRowEditInit(rowData)"></button>
+            <button *ngIf="editing" pButton type="button" pSaveEditableRow icon="pi pi-check" class="ui-button-success"
+              style="margin-right: .5em" (click)="onRowEditSave(rowData)"></button>
+            <button *ngIf="editing" pButton type="button" pCancelEditableRow icon="pi pi-times" class="ui-button-danger"
+              (click)="onRowEditCancel(rowData, ri)"></button>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="summary">
+          <div style="text-align:left">
+              <button type="button" pButton icon="fa fa-plus" (click)="addRow()" label="Add"></button>
+            </div>
+        </ng-template>
+    </p-table>
+  </div>
+</div>

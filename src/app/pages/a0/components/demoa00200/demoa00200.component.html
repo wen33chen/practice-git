@@ -1,0 +1,75 @@
+<div class="content">
+  <p-splitButton label="載入資料" icon="pi pi-file" (onClick)="getcars()" [model]="buttonItems"></p-splitButton>
+  <p-table #dt [value]="(tableData)" [columns]="cols" [paginator]="true" [rows]="(rowsTable)"
+    (sortFunction)="customSort($event)" [rowsPerPageOptions]="[10,20,30]">
+    <ng-template pTemplate="caption">
+      <div style="text-align: right">
+        <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+        <input type="text" pInputText size="50" placeholder="Global Filter"
+          (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th rowspan="2">
+        </th>
+        <th rowspan="2">{{tmp}}</th>
+        <th rowspan="2">Type</th>
+        <th colspan="2">Price</th>
+      </tr>
+      <tr>
+        <th>Min Price</th>
+        <th pSortableColumn="price">Price <p-sortIcon field="price"></p-sortIcon>
+        </th>
+      </tr>
+      <tr>
+        <th></th>
+        <th>
+          <p-multiSelect [style]="{'width':'100%','margin-top':'8px'}" [options]="brands" defaultLabel="All Brand"
+            (onChange)="dt.filter($event.value, 'manufacturer', 'in')"></p-multiSelect>
+        </th>
+        <th></th>
+        <th></th>
+        <th>
+          <div>
+            Price > {{priceFilter | currency}}
+            <i class="fa fa-close" (click)="priceFilter=null;dt.filter(null, 'price', col.filterMatchMode)"
+              style="cursor:pointer" *ngIf="priceFilter"></i>
+            <p-slider [style]="{'width':'100%','margin-top':'8px'}" [min]="0" [max]="999999"
+              (onChange)="onPriceChange($event, dt)" [(ngModel)]="priceFilter"></p-slider>
+          </div>
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-expanded="expanded" let-rowData let-columns="columns">
+      <tr>
+        <td>
+          <button pButton icon="pi pi-eye" (click)="selectCarWithButton(rowData)"></button>
+        </td>
+        <!-- <td *ngFor="let col of columns">
+
+              {{rowData[col.field]}}
+            </td> -->
+        <td>{{rowData.manufacturer}}</td>
+        <td>{{rowData.type}}</td>
+        <td align="right">{{rowData.minPrice | currency}}</td>
+        <td align="right">{{rowData.price | currency}}</td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="paginatorright" let-state>
+      <div style="padding-top: 0.5em;padding-left: 2em;padding-right: 0.5em;">
+        {{state.totalRecords}} records
+      </div>
+      <!-- <div>
+            目前在第{{state.page+1}}頁
+          </div> -->
+    </ng-template>
+    <ng-template pTemplate="footer">
+      <tr>
+        <td colspan="3">Totals</td>
+        <td align="right">{{506202 | currency}}</td>
+        <td align="right">{{531020 | currency}}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

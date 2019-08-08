@@ -1,0 +1,21 @@
+
+  <input type="text" [(ngModel)]="money" pInputText placeholder="請輸入money"> <input type="text" [(ngModel)]="cur" pInputText placeholder="請輸入幣別">
+
+  <div class="content">
+
+      <div>預設: {{money | currency}}</div>
+
+        <div>指定台幣: {{money | currency:'TWD'}}</div>
+
+        <div>指定幣別: {{money | currency:cur}}</div>
+
+        <div>指定format格式為4.2-4: {{money | currency:cur :symbol:'4.2-4' }}</div>
+
+        <div>指定format格式為0.2-4: {{money | currency:cur :symbol:'0.2-4' }}</div>
+
+        <div>指定format格式為0.4-2(不能跑): {{money | currency:cur :symbol:'0.4-2' }}</div>
+
+  </div>
+
+  <input type="text" (focus)="clearText($event)"  (blur)="inputBlur($event)"  pInputText placeholder="請輸入money">
+  <input type="text" decimalFormat curreny="" dformat="" placeholder="請輸入money">

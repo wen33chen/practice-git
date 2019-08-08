@@ -1,0 +1,27 @@
+<form>
+  <div class="content">
+    <div class="ui-g">
+      <div class="ui-g-12 card-title">
+        Role可點選Menu維護
+      </div>
+      <div class="card-content">
+        <div class="ui-g">
+          <div class="ui-g-4">
+            <h3 class="first">Role:</h3><span>{{thePassingRole}} </span>
+          </div>
+            <div class="ui-g" style="width:250px;margin-bottom:10px">
+                <h3 class="first">功能</h3>
+                <div class="ui-g-12"><p-radioButton name="group1" value="new" label="新增" [(ngModel)]="modeVal" inputId="opt1"></p-radioButton></div>
+                <div class="ui-g-12"><p-radioButton name="group1" value="delete" label="刪除" [(ngModel)]="modeVal" inputId="opt2"></p-radioButton></div>
+            </div>
+            <div class="ui-inputgroup">
+                <span class="ui-inputgroup-addon"><i class="fa fa-user"></i></span>
+                <input type="text" pInputText placeholder="Menuid" [(ngModel)]="inputVal"  (change)="inputChange()" name="first">
+            </div>
+            <button pButton type="button" label="提交" class="ui-button-rounded" (click)="submit()"></button>
+            <!-- Selected Value = {{modeVal}} -->
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

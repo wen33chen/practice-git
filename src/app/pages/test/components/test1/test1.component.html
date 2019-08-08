@@ -1,0 +1,19 @@
+<!-- <button pButton class="outline" type="button" label="{{ 'general.cancel' | translate }}" (click)="cccc()"></button> -->
+<!-- <p-tabMenu [model]="menuItems">
+    <ng-template pTemplate="item" let-item let-i="index">
+        //item content
+    </ng-template>
+</p-tabMenu> -->
+<p-tabMenu [model]="menuItems" [activeItem]="menuItems[0]"></p-tabMenu>
+<mat-tab-group [color]="accent" backgroundColor="background" #tabGroup>
+    <!-- animationDuration="0ms" -->
+  <mat-tab id="tab1-tab" label="Page 1">
+    <app-wendemo0></app-wendemo0>
+  </mat-tab>
+  <mat-tab id="tab2-tab" label="Page 2">
+    <app-wendemo1></app-wendemo1>
+  </mat-tab>
+  <mat-tab id="tab3-tab" label="Page 3">
+    <app-wendemo2></app-wendemo2>
+  </mat-tab>
+</mat-tab-group>

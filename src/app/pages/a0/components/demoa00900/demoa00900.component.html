@@ -1,0 +1,147 @@
+<h3>Button Addons</h3>
+<div class="ui-g ui-fluid">
+  <form #formTest="ngForm" (ngSubmit)="onSubmi(ngForm)" [formGroup]="form">
+
+    <div class="ui-g-12 ui-md-4">
+
+      <div class="ui-inputgroup">
+        <button pButton type="submit" label="Submit"></button>
+        <input type="text" pInputText placeholder="Keyword">
+      </div>
+
+    </div>
+    <div class="ui-g-12 ui-md-4">
+      <div class="ui-inputgroup">
+        <span class="ui-inputgroup-addon"><i class="fa fa-user"></i></span>
+        <input type="text" formControlName="name" pInputText placeholder="Username">
+      </div>
+
+      <app-validate-span [formgroup]="form" [name]="'name'" [submited]="issubmit"></app-validate-span>
+
+    </div>
+
+    <div class="ui-g-12 ui-md-4">
+      <div class="ui-inputgroup">
+        <span class="ui-inputgroup-addon">$</span>
+        <input type="text" formControlName="price" pInputText placeholder="Price">
+        <span class="ui-inputgroup-addon">.00</span>
+      </div>
+      <app-validate-span [formgroup]="form" [name]="'price'" [submited]="issubmit"></app-validate-span>
+
+
+    </div>
+    <div class="ui-g-12 ui-md-4">
+      <div class="ui-inputgroup" formArrayName="nickname">
+
+        <div *ngFor="let item of form.controls.nickname.controls;let i=index">
+          <input type="text" pInputText placeholder="nickname" [formControlName]="i">
+          <app-validate-span [formgroup]="form" [name]="'nickname'" [index]="i" [submited]="issubmit"></app-validate-span>
+
+        </div>
+
+      </div>
+      <!--  -->
+    </div>
+    <div class="ui-g-12 ui-md-4">
+      <input type="radio" formControlName="radio" value="1"><span>radio1</span>
+      <input type="radio" formControlName="radio" value="2"><span>radio2</span>
+      <app-validate-span [formgroup]="form" [name]="'radio'" [submited]="issubmit"></app-validate-span>
+    </div>
+    <!--  radio checkbox-->
+    <div class="ui-g-12 ui-md-4">
+      <div class="ui-inputgroup">
+        <span class="ui-inputgroup-addon"><i class="fa fa-user"></i></span>
+        <input type="text" formControlName="validatenumber" pInputText placeholder="validatenumber">
+      </div>
+      <app-validate-span [formgroup]="form" [name]="'validatenumber'" [submited]="issubmit" [message]="'自定義訊息'"></app-validate-span>
+    </div>
+    <div class="ui-g-12 ui-md-4">
+      <div class="ui-inputgroup">
+        <span class="ui-inputgroup-addon"><i class="fa fa-user"></i></span>
+        <input type="text" formControlName="phone" pInputText placeholder="Phone">
+      </div>
+      <app-validate-span [formgroup]="form" [name]="'phone'" [submited]="issubmit"></app-validate-span>
+    </div>
+    <div class="ui-g-12 ui-md-4">
+      <div class="ui-inputgroup">
+        <span class="ui-inputgroup-addon"><i class="fa fa-user"></i></span>
+        <input type="text" formControlName="UniSN" pInputText placeholder="UniSN">
+      </div>
+      <app-validate-span [formgroup]="form" [name]="'UniSN'" [submited]="issubmit"></app-validate-span>
+    </div>
+    <div class="ui-g-12 ui-md-4">
+      <div class="ui-inputgroup">
+        <span class="ui-inputgroup-addon"><i class="fa fa-user"></i></span>
+        <input type="text" formControlName="ROCID" pInputText placeholder="ROCID">
+      </div>
+      <app-validate-span [formgroup]="form" [name]="'ROCID'" [submited]="issubmit"></app-validate-span>
+    </div>
+    <div class="ui-g-12 ui-md-4">
+      <div class="ui-inputgroup">
+        <span class="ui-inputgroup-addon"><i class="fa fa-user"></i></span>
+        <input type="text" formControlName="digits" pInputText placeholder="digits">
+      </div>
+      <app-validate-span [formgroup]="form" [name]="'digits'" [submited]="issubmit"></app-validate-span>
+    </div>
+    <div class="ui-g-12 ui-md-4">
+      <div class="ui-inputgroup">
+        <span class="ui-inputgroup-addon"><i class="fa fa-user"></i></span>
+        <input type="text" formControlName="email" pInputText placeholder="email">
+      </div>
+      <app-validate-span [formgroup]="form" [name]="'email'" [submited]="issubmit"></app-validate-span>
+    </div>
+    <div class="ui-g-12 ui-md-4">
+      <div class="ui-inputgroup">
+        <span class="ui-inputgroup-addon"><i class="fa fa-user"></i></span>
+        <input type="text" formControlName="englishOrInteger" pInputText placeholder="englishOrInteger">
+      </div>
+      <app-validate-span [formgroup]="form" [name]="'englishOrInteger'" [submited]="issubmit"></app-validate-span>
+    </div>
+    <div class="ui-g-12 ui-md-4">
+      <div class="ui-inputgroup">
+        <span class="ui-inputgroup-addon"><i class="fa fa-user"></i></span>
+        <input type="text" formControlName="halfType" pInputText placeholder="halfType">
+      </div>
+      <app-validate-span [formgroup]="form" [name]="'halfType'" [submited]="issubmit"></app-validate-span>
+    </div>
+    <div class="ui-g-12 ui-md-4">
+      <div class="ui-inputgroup">
+        <span class="ui-inputgroup-addon"><i class="fa fa-user"></i></span>
+        <input type="text" formControlName="english" pInputText placeholder="english">
+      </div>
+      <app-validate-span [formgroup]="form" [name]="'english'" [submited]="issubmit"></app-validate-span>
+    </div>
+    <div class="ui-g-12 ui-md-4">
+      <div class="ui-inputgroup">
+        <span class="ui-inputgroup-addon"><i class="fa fa-user"></i></span>
+        <input type="text" formControlName="chineseOrEnglish" pInputText placeholder="chineseOrEnglish">
+      </div>
+      <app-validate-span [formgroup]="form" [name]="'chineseOrEnglish'" [submited]="issubmit"></app-validate-span>
+    </div>
+    <div class="ui-g-12 ui-md-4">
+      <div class="ui-inputgroup">
+        <span class="ui-inputgroup-addon"><i class="fa fa-user"></i></span>
+        <input type="text" formControlName="chineseOrEnglishOrBlank" pInputText placeholder="chineseOrEnglishOrBlank">
+      </div>
+      <app-validate-span [formgroup]="form" [name]="'chineseOrEnglishOrBlank'" [submited]="issubmit"></app-validate-span>
+    </div>
+    <div class="ui-g-12 ui-md-4">
+      <div class="ui-inputgroup">
+        <span class="ui-inputgroup-addon"><i class="fa fa-user"></i></span>
+        <input type="text" formControlName="number" pInputText placeholder="number">
+      </div>
+      <app-validate-span [formgroup]="form" [name]="'number'" [submited]="issubmit"></app-validate-span>
+    </div>
+    <div class="ui-g-12 ui-md-4">
+      <div class="ui-inputgroup">
+        <span class="ui-inputgroup-addon"><i class="fa fa-user"></i></span>
+        <input type="text" formControlName="chinese" pInputText placeholder="chinese">
+      </div>
+      <app-validate-span [formgroup]="form" [name]="'chinese'" [submited]="issubmit"></app-validate-span>
+    </div>
+  </form>
+
+</div>
+
+<button pButton (click)='clearSubmit()' label="clear檢核"></button>
+<button pButton (click)='test()' label="test"></button>
